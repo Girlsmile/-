@@ -1,12 +1,43 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
 context: |
-  Project: 力训记录, a personal strength training log website.
-  Current implementation: static HTML/CSS/JavaScript with seed workout data and localStorage persistence.
-  Product goal: deployable web app with durable database-backed workout records, check-in calendar, and training progress views.
-  Preferred future stack: Next.js, TypeScript, PostgreSQL via Supabase, Prisma, and Vercel.
-  Domain notes: workouts are usually grouped as push, pull, legs/core, or mixed sessions.
-  Documentation language: all OpenSpec-generated artifacts should be written in Chinese unless the user explicitly asks otherwise.
+  语言：中文（简体）。所有 OpenSpec 产出物必须用简体中文撰写，除非用户明确要求使用其他语言。
+  文档规范：优先用简单、可读、可执行的总结表达；流程图要符合 ER 图、时序图或流程图本身的规范，避免用复杂长段落替代结构化图示。
+  Project：力训记录，一个用于记录每日力量训练、展示打卡表和训练趋势的个人网站。
+  Current implementation：静态 HTML/CSS/JavaScript，已内置初始训练数据，当前使用 localStorage 持久化。
+  Product goal：演进为可部署的数据库驱动 Web 应用，支持持久保存训练记录、打卡日历、训练趋势统计和后续登录能力。
+  Tech stack：Next.js、TypeScript、React、PostgreSQL/Supabase、Prisma、Vercel。
+  Domain notes：训练通常按推、拉、腿/核心、混合训练分类；核心数据包括训练日期、训练类型、动作、重量、次数、组数和备注。
+  编码规范：遵守单一职责原则；功能边界要清晰；组件、数据访问、业务规则和展示逻辑要分层；当单文件代码明显膨胀或超过 1200 行时必须拆分；一个文件只放一个主要职责，禁止在单文件中堆叠多个无关顶层声明。
+  稳定性原则：涉及数据持久化、迁移、登录、部署配置和统计口径时优先保证稳定性；异步任务优先使用 async/await；功能扩展按开闭原则设计，避免把未来扩展写死在页面组件里。
+  编程红线：新的或修改后的单个方法/函数总行数不超过 150；非必要不使用危险断言或绕过类型检查；关键业务函数、数据模型、数据库迁移和复杂状态逻辑必须有清晰注释。
+  测试规范：当前早期阶段默认以构建通过、关键交互人工验证和必要的定向测试为主；只有复杂功能、高风险 bug、跨模块主流程、预计修改文件数超过 3 个、或预计代码改动超过 200 行时，才在任务中安排聚焦测试。
+
+rules:
+  apply:
+    - 所有实现说明、提交说明和收尾总结默认使用简体中文。
+    - 涉及数据库 schema、迁移、数据导入或持久化逻辑时，必须优先说明数据模型和回滚风险。
+    - 涉及部署、构建或运行验证时，必须优先使用项目现有脚本；没有脚本时先补充清晰说明，再选择最小可行验证方式。
+    - 简单改动保持小步提交；不要在实现阶段引入与当前 OpenSpec change 无关的大规模重构。
+  explore:
+    - 按功能边界探索，先区分记录录入、数据模型、日历打卡、统计展示、登录权限和部署配置等边界。
+    - explore 阶段必须把探索结论沉淀为 `openspec/explore/` 目录下的独立中文文档，禁止只停留在对话里不落文档。
+    - explore 文档命名要能直接表达主题边界，避免写成过宽泛或无法回链的名称。
+    - 涉及代码结构梳理、模块入口定位、调用链追踪、影响面判断时，优先使用 `rg`、项目文件阅读和必要的运行验证沉淀依据。
+  proposal:
+    - 尽量多使用流程图、ER 图或表格表达结构关系，而不是只写长段描述。
+    - 要分析需求是否过大；如果还能继续切分边界，必须询问用户是否拆分。
+    - proposal 必须记录本次所依据的 explore 文档；如果存在对应 explore 文档，需要明确写出文件路径或文件名。
+    - proposal 只能承接已经收敛过边界的 explore 结论；如果发现 explore 结论仍然过大或边界混杂，必须先回到 explore 拆分后再继续 proposal。
+  tasks:
+    - 不默认要求每个 plan 先补测试或达到固定覆盖率；只有复杂功能、高风险 bug、跨模块主流程、预计修改文件数超过 3 个、或预计代码改动超过 200 行时，才在 tasks 中安排测试驱动或新增聚焦测试。
+    - 简单清晰、影响面小、逻辑明确的改动可以直接实现；tasks 只需写明构建、现有定向测试或人工验证方式。
+    - 涉及数据库、登录、部署或数据迁移时，tasks 必须包含验证方式和失败回退考虑。
+    - 完成之后必须验证构建能通过；如果无法验证，必须明确说明原因和剩余风险。
+  verify:
+    - verify 阶段必须检查构建、关键交互和数据持久化路径是否符合本次 change 的验收条件。
+    - 如果发现可复用、会影响后续实现/排查/review 判断、且不能从文件名直接看出的事实，必须识别为“可沉淀知识点”。
+    - 发现“可沉淀知识点”时禁止直接写入知识库，必须先询问用户是否记录到 `docs/agent-knowledge-base/`。
+  archive:
+    - archive/收尾阶段必须再次检查本次变更是否产生了值得沉淀到 `docs/agent-knowledge-base/` 的知识点。
+    - 如果存在候选知识点，必须先向用户给出简短结论并询问是否需要记录，不能默认跳过，也不能默认写入。
