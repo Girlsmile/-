@@ -10,15 +10,3 @@ context: |
   Preferred future stack: Next.js, TypeScript, PostgreSQL via Supabase, Prisma, and Vercel.
   Domain notes: workouts are usually grouped as push, pull, legs/core, or mixed sessions.
   Documentation language: all OpenSpec-generated artifacts should be written in Chinese unless the user explicitly asks otherwise.
-
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-rules:
-  proposal:
-    - 使用中文编写。
-  design:
-    - 使用中文编写。
-  tasks:
-    - 使用中文编写。
-  spec:
-    - 使用中文编写。
