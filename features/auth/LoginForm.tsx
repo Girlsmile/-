@@ -1,4 +1,5 @@
 import { signInAction } from "@/app/actions/auth";
+import Link from "next/link";
 
 /** LoginForm renders the email/password authentication form. */
 export function LoginForm({
@@ -26,6 +27,9 @@ export function LoginForm({
             登录
           </button>
         </form>
+        <p className="auth-switch">
+          还没有账户？<Link href="/register">去注册</Link>
+        </p>
       </section>
     </main>
   );
@@ -35,6 +39,18 @@ export function LoginForm({
 function getErrorMessage(error: string): string {
   if (error === "missing") {
     return "请填写邮箱和密码。";
+  }
+
+  if (error === "check-email") {
+    return "注册成功，请先去邮箱点击验证链接。";
+  }
+
+  if (error === "resent") {
+    return "验证邮件已重新发送，请查收邮箱。";
+  }
+
+  if (error === "unconfirmed") {
+    return "邮箱还未验证，请先去邮箱完成验证。";
   }
 
   return "登录失败，请检查邮箱或密码。";

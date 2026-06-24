@@ -8,6 +8,7 @@
 
 - 将项目迁移到可承载服务端逻辑的 Next.js/TypeScript 结构，保留现有主要页面体验。
 - 接入 Supabase Auth，提供基础登录、登出和服务端会话读取能力。
+- 接入 Supabase Auth，提供基础登录、注册、邮箱验证、登出和服务端会话读取能力。
 - 接入 PostgreSQL/Supabase 与 Prisma，建立基础数据表和数据访问层。
 - 新增按当前登录用户隔离的数据读写能力，禁止前端传入可信 `user_id`。
 - 将新增、列表、删除等基础记录操作从 `localStorage` 切换为服务端持久化。
