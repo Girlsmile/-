@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>力训记录</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Strength Log</p>
+          <h1>力训记录</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button" id="themeToggle" type="button" aria-label="切换主题" title="切换主题">◐</button>
+          <button class="ghost-button" id="resetData" type="button">恢复初始记录</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="stats-grid" aria-label="训练概览">
+          <article class="metric">
+            <span>训练天数</span>
+            <strong id="totalDays">0</strong>
+            <small>已记录打卡</small>
+          </article>
+          <article class="metric">
+            <span>本月打卡</span>
+            <strong id="monthDays">0</strong>
+            <small id="monthLabel">-</small>
+          </article>
+          <article class="metric">
+            <span>最长连续</span>
+            <strong id="bestStreak">0</strong>
+            <small>天</small>
+          </article>
+          <article class="metric">
+            <span>卧推最高工作组</span>
+            <strong id="benchMax">-</strong>
+            <small>从记录中提取</small>
+          </article>
+        </section>
+
+        <section class="workspace">
+          <div class="calendar-panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Check-in</p>
+                <h2>打卡表</h2>
+              </div>
+              <div class="month-controls">
+                <button class="icon-button" id="prevMonth" type="button" aria-label="上个月" title="上个月">‹</button>
+                <input id="monthPicker" type="month" aria-label="选择月份" />
+                <button class="icon-button" id="nextMonth" type="button" aria-label="下个月" title="下个月">›</button>
+              </div>
+            </div>
+            <div class="weekdays" aria-hidden="true">
+              <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+            </div>
+            <div class="calendar" id="calendar" aria-label="月度训练打卡"></div>
+            <div class="legend">
+              <span><i class="dot hit"></i>已练</span>
+              <span><i class="dot today"></i>今天</span>
+              <span><i class="dot empty"></i>未记录</span>
+            </div>
+          </div>
+
+          <form class="entry-form" id="entryForm">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">New log</p>
+                <h2>添加训练</h2>
+              </div>
+            </div>
+            <label>
+              日期
+              <input id="entryDate" type="date" required />
+            </label>
+            <label>
+              训练类型
+              <select id="entryType">
+                <option value="push">推：胸 / 肩 / 三头</option>
+                <option value="pull">拉：背 / 二头</option>
+                <option value="legs">腿 / 核心</option>
+                <option value="mixed">混合 / 补弱</option>
+              </select>
+            </label>
+            <label>
+              内容
+              <textarea id="entryText" rows="7" placeholder="例：卧推 65kg 5 5 5 6 6，上斜卧推 40kgx10x3" required></textarea>
+            </label>
+            <button class="primary-button" type="submit">保存记录</button>
+          </form>
+        </section>
+
+        <section class="analysis-grid">
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Split</p>
+                <h2>训练分布</h2>
+              </div>
+            </div>
+            <div class="bars" id="typeBars"></div>
+          </div>
+
+          <div class="panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Bench</p>
+                <h2>卧推走势</h2>
+              </div>
+            </div>
+            <div class="sparkline-wrap">
+              <svg id="benchSparkline" class="sparkline" viewBox="0 0 640 180" role="img" aria-label="卧推工作重量走势"></svg>
+            </div>
+          </div>
+        </section>
+
+        <section class="records-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Logs</p>
+              <h2>训练记录</h2>
+            </div>
+            <div class="filters" role="group" aria-label="筛选训练类型">
+              <button class="filter active" type="button" data-filter="all">全部</button>
+              <button class="filter" type="button" data-filter="push">推</button>
+              <button class="filter" type="button" data-filter="pull">拉</button>
+              <button class="filter" type="button" data-filter="legs">腿核</button>
+              <button class="filter" type="button" data-filter="mixed">混合</button>
+            </div>
+          </div>
+          <div class="records" id="records"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="recordTemplate">
+      <article class="record-card">
+        <div class="record-top">
+          <div>
+            <time></time>
+            <strong></strong>
+          </div>
+          <button class="icon-button delete-entry" type="button" aria-label="删除记录" title="删除记录">×</button>
+        </div>
+        <p></p>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
