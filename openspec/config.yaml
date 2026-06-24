@@ -1,0 +1,21 @@
+schema: spec-driven
+
+# Project context (optional)
+# This is shown to AI when creating artifacts.
+# Add your tech stack, conventions, style guides, domain knowledge, etc.
+context: |
+  Project: 力训记录, a personal strength training log website.
+  Current implementation: static HTML/CSS/JavaScript with seed workout data and localStorage persistence.
+  Product goal: deployable web app with durable database-backed workout records, check-in calendar, and training progress views.
+  Preferred future stack: Next.js, TypeScript, PostgreSQL via Supabase, Prisma, and Vercel.
+  Domain notes: workouts are usually grouped as push, pull, legs/core, or mixed sessions.
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always include a "Non-goals" section
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
