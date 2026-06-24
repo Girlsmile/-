@@ -4,20 +4,33 @@
 
 ## 当前版本
 
-- 单页静态网站，直接打开 `index.html` 即可使用。
-- 训练数据暂存在浏览器 `localStorage`。
-- 已内置初始训练记录、月度打卡、训练分布、卧推走势和记录筛选。
+- 已迁移到 Next.js App Router + TypeScript。
+- 登录使用 Supabase Auth。
+- 数据通过 Prisma 写入 PostgreSQL，并按登录用户隔离。
+- 旧版静态文件仍保留为迁移参考。
 
-## 下一步技术方向
+## 本地运行
 
-目标是改造成可部署、数据保存在数据库里的正式网站。
+```bash
+npm install
+npm run prisma:generate
+npm run dev
+```
 
-推荐方案：
+需要先配置 `.env`，可参考 `.env.example`。
 
-- 前端和后端：Next.js
-- 数据库：PostgreSQL，优先用 Supabase 托管
-- ORM：Prisma
-- 部署：Vercel
-- 登录：先做单用户密码保护，后续再接 Supabase Auth 或 NextAuth
+## 验证
 
-这样可以保留现在的页面体验，同时把训练记录迁移到数据库表里，后续也方便加动作库、体重记录、训练模板、统计图和移动端体验。
+```bash
+npm test
+npm run typecheck
+npm run build
+```
+
+数据库迁移：
+
+```bash
+npm run prisma:migrate
+```
+
+生产或远端环境需要提供 Supabase 项目、PostgreSQL 连接串和测试账号后，才能完成登录、登出、用户隔离的人工验证。

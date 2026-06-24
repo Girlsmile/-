@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model DataEntry {
+  id         String   @id @default(uuid())
+  userId     String   @map("user_id")
+  occurredOn DateTime @map("occurred_on") @db.Date
+  type       String
+  content    String   @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@index([userId, occurredOn])
+  @@map("data_entries")
+}
