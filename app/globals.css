@@ -29,11 +29,22 @@
   margin-top: 22px;
 }
 
+.auth-inline-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  margin-top: 14px;
+}
+
 .auth-form label {
   display: grid;
   gap: 7px;
   color: var(--muted);
   font-weight: 800;
+}
+
+.auth-inline-form input {
+  min-width: 0;
 }
 
 .form-error {
@@ -44,6 +55,23 @@
   background: color-mix(in srgb, var(--accent) 12%, var(--panel));
   color: var(--accent);
   font-weight: 800;
+}
+
+.auth-switch {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.auth-switch a {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+@media (max-width: 520px) {
+  .auth-inline-form {
+    grid-template-columns: 1fr;
+  }
 }
 
 .user-chip {

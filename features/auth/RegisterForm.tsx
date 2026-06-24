@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { resendVerificationAction, signUpAction } from "@/app/actions/auth";
+import { signUpAction } from "@/app/actions/auth";
 
 /** RegisterForm renders the account creation form. */
 export function RegisterForm({
@@ -25,15 +25,6 @@ export function RegisterForm({
           </label>
           <button className="primary-button" type="submit">
             创建账户
-          </button>
-        </form>
-        <form action={resendVerificationAction} className="auth-form">
-          <label>
-            已注册邮箱
-            <input autoComplete="email" name="email" required type="email" />
-          </label>
-          <button className="ghost-button" type="submit">
-            重新发送验证邮件
           </button>
         </form>
         <p className="auth-switch">

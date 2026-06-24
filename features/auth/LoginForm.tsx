@@ -1,4 +1,4 @@
-import { signInAction } from "@/app/actions/auth";
+import { resendVerificationAction, signInAction } from "@/app/actions/auth";
 import Link from "next/link";
 
 /** LoginForm renders the email/password authentication form. */
@@ -25,6 +25,12 @@ export function LoginForm({
           </label>
           <button className="primary-button" type="submit">
             登录
+          </button>
+        </form>
+        <form action={resendVerificationAction} className="auth-inline-form">
+          <input autoComplete="email" name="email" placeholder="已注册邮箱" required type="email" />
+          <button className="ghost-button" type="submit">
+            重新发送验证邮件
           </button>
         </form>
         <p className="auth-switch">
